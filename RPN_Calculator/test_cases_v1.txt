@@ -1,0 +1,19 @@
+to test functionallity you can copy and paste each 
+of these expressions after runnning ocamlrun RPNv1, make sure no following whitespace
+
+basic tests: 
+3 5 +                   result: 8
+6 4 -                   result: 2
+3.3 2 *                 result: 6.6
+12 2 /                  result: 6
+4 2 ^                   result: 16
+
+harder tests:
+5 7 + 2 / 3 *                           result: 18
+15 7 1 1 + - / 3 * 2 1 1 + + -          result: 5
+2 6 * 3 / 4 * 0.5 ^                     result: 4
+
+invalid expressions:
+5 + 5                           result: not an RPN expression
+* 2 3                           result: not an RPN expression
+6 ^ 2 2                         result: not an RPN expression

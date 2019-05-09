@@ -1,0 +1,13 @@
+let function_block: block = 
+  [ 
+    Return(Op2("+", Var("a"), Var("b")))
+  ]
+;;
+let additionfunc = 
+  [  
+    FctDef("addition", ["a"; "b"], function_block);
+    Print(FctCall("addition", [Num(5.0); Num(3.3)]))
+   ]
+ ;;
+runCode additionfunc [];
+print_newline ();;

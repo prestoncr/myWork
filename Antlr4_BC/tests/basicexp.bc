@@ -1,0 +1,28 @@
+/* This bc file tests all basic expressions*/
+x = 5;
+x;  /* result will be 5*/
+y = 3.85 + 9;
+y; /* result will be 12.85*/
+-x;     /* result will be -5*/
+x++;    /* result will be 5, but x will now hold 6*/
+++x;    /* result will be 7 because x holds 6*/
+x--;    /* result will be 7, x now holds 6*/
+--x;    /* result will be 5*/
+x+y;    /* result will be 17.85*/
+6.3 + 2.2; /* result will be 8.5, just showing ops work with nums and vars*/
+x - y;    /* result will be -7.85*/
+x * y;   /* result will be 64.25*/
+y / x; /* result will be 2.57*/
+15 % 4; /* result will be 3*/
+10 % 2; /* result will be 0*/
+2 ^ 3;  /* result will be 8*/
+( 5 + 5) * 3;  /* result will be 30*/
+
+/* now showing more complicated expressions that demonstrate precedence and other things*/
+
+j = 3.3;  k = 1.5;  p  = 10;
+j*k*p;  /* result will be 49.499999*/
+ 2 * (3.5 * 1) * 2;   /* result will be 14*/
+(600 / 30) * (4^2 + 2.5);  /* result will be 370*/
+k * p / (1 + j + 0.7); /* result will be 3*/
+y / 0; /* result will be runtime error*/

@@ -1,0 +1,18 @@
+(* if testing functions put function block code here*)
+let function_block: block = 
+  [ 
+   
+  ]
+;;
+
+(* put all statements here *)
+let runcode = 
+  [  
+   Assign("v", Op2("+", Num(9.6), Num(1.0)));
+   Print(Op1("++", Var("v")));
+   PrintNewLine("useless string");
+   Print (Op2("-", Var("v"), Num(2.0)))
+  ]
+ ;;
+runCode runcode [];
+print_newline ();;

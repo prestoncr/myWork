@@ -1,0 +1,13 @@
+let for_block = 
+  [ 
+    Print (Op2("+", Var("v"), Var("v")))
+  ]
+;;
+
+let trial_for= 
+[  
+  For(Assign("v", Num(5.0)), Op2(">", Var("v"), Num(0.0)), Assign("v", Op2("-", Var("v"), Num(1.0))),for_block)
+]
+;;
+runCode trial_for [];;
+print_newline ();;

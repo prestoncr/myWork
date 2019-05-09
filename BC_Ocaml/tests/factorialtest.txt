@@ -1,0 +1,18 @@
+let fact_block: block = 
+  [ 
+    If (Op2(">=", Var("n"), Num(1.0)), 
+    [Return(Op2("*", Var("n"), FctCall("factorial", [Op2("-", Var("n"), Num(1.0))])))],
+    [Return(Num(1.0))]
+    )
+  ]
+;;
+let factorialfunc = 
+  [  
+    FctDef("factorial", ["n"], fact_block);
+    Print(FctCall("factorial", [Num(5.0)]))
+   ]
+ ;;
+runCode factorialfunc [];
+print_newline ();;
+
+

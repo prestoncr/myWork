@@ -1,0 +1,10 @@
+/* This bc file tests the print list function */
+
+x=1;
+y=2;
+z=3;
+print x,y,z;        /* should print 123 all on the same line together */
+a=5+5;
+b=456*789;
+c=234/123;
+print a,b,c;        /* should print 10 359784 1.90243902439024390243 */

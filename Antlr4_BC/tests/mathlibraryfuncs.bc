@@ -1,0 +1,42 @@
+/* This bc file tests the math library functions s, c, l and e */
+
+/* testing the sin func */
+s(1);       /* should print .84147098480789650665 */
+s(2);       /* should print .90929742682568169539 */
+s(30);      /* should print -.98803162409286178998 */
+s(-60);     /* should print .30481062110221670562 */
+a = 15.25; 
+b = 35.75;
+c = 270;
+s(a);       /* should print .44212216857653940026 */
+s(b);       /* should print -.92928812723633907743 */
+s(c);       /* should print -.17604594647121140307 */
+
+/* testing the cos func */
+x=90;
+y=0;
+z=180;
+c(x);       /* should print -.44807361612917015236 */
+c(y);       /* should print  1.000000000000000000  */    
+c(z);       /* should print -.59846006905785813896 */
+
+
+/* testing the natural log func */
+x=21.75;
+y=3.8;
+z=-2.1;
+l(1);       /* should print 0 */
+l(0);       /* should print -Infinity */
+l(x);       /* should print 3.07961375753469309974 */
+l(y);       /* should print 1.33500106673234008540 */
+l(z);       /* should print NaN, not a number */
+
+/* testing the e exponential func */
+a=15;
+b=5+5;
+c=-9.5;
+e(1);       /* should print 2.71828182845904523536 */
+e(0);       /* should print 1.00000000000000000000 */
+e(a);       /* should print 3269017.37247211063930185504 */
+e(b);       /* should print 22026.46579480671651695790 */
+e(c);       /* should print 7.485182988770059 E-5 */

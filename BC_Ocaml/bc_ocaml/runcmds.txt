@@ -1,0 +1,10 @@
+for dune things:
+
+dune build
+dune runtest
+
+for actualbc.ml
+ocamlc -o tester actualbc.ml -w -0..50
+ocamlrun tester
+
+remove -w -0..50 to see warnings

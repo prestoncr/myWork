@@ -1,0 +1,23 @@
+/* This bc file tests special functions read() and sqrt() */
+
+/* Testing the read() function */
+x = read();     /* should prompt user for input, please enter 45 as the number */
+x;              /* should print 45, the value of x */
+y = read();     /* should prompt user for input, please enter the expression 5+5 */
+                /* will display invalid input, now just enter 5*/
+y;              /* should print 5, because 5 was the first argument entered after executing read() */
+z = read();     /* should prompt for user input, please enter -256 as the number */
+z;              /* should print -256, the value of z */
+
+/* Testing the sqrt() function */
+sqrt(1);        /* should print 1 */
+sqrt(0);        /* should print 0 */
+sqrt(4);        /* should print 2.0 */
+sqrt(16);      /* should print 4.0 */
+a=36;
+b=72;
+c=144;
+sqrt(a);        /* should print 6.0 */
+sqrt(b);        /* should print 8.48528137423857*/
+sqrt(c);        /* should print 12.0 */
+sqrt(-1);       /* should print a runtime error then print 0.0*/

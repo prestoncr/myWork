@@ -1,0 +1,29 @@
+(* let p1: block = 
+       [ 
+         Print (Op2("-", Var("v"), Num(2.0)))
+       ]
+;; *)
+
+(* let for_block = 
+  [ 
+    Print (Op2("+", Var("v"), Var("v")))
+  ]
+;;
+
+let trial_for= 
+[  
+  For(Assign("v", Op2("+", Num(3.0), Num(2.0))), Op2(">", Var("v"), Num(0.0)), Assign("v", Op2("-", Var("v"), Num(1.0))),for_block)
+]
+;;
+runCode trial_for [];;
+print_newline ();;
+
+let my_func = FctDef("my_func", ["v"], p1);;
+let trial_func =
+  [  
+   my_func;
+   Expr(FctCall("my_func", [Num(12.5)]))
+  ]
+;; *)
+
+(* runCode trial_func []; *)

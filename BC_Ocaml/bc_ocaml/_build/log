@@ -1,0 +1,44 @@
+# dune runtest
+# OCAMLPARAM: unset
+$ /usr/bin/getconf _NPROCESSORS_ONLN > /var/folders/d9/c5hw5x397sdchvs9q9zt04km0000gn/T/dune23d4dd.output 2> /dev/null
+$ /usr/local/bin/ocamlc.opt -config > /var/folders/d9/c5hw5x397sdchvs9q9zt04km0000gn/T/dune3c85a1.output
+$ (cd _build/default && /usr/local/bin/ocamlc.opt -w @a-4-29-40-41-42-44-45-48-58-59-60-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -bin-annot -I .bc.objs/byte -I /Users/Preston/.opam/default/lib/base -I /Users/Preston/.opam/default/lib/base/caml -I /Users/Preston/.opam/default/lib/base/md5 -I /Users/Preston/.opam/default/lib/base/shadow_stdlib -I /Users/Preston/.opam/default/lib/base_bigstring -I /Users/Preston/.opam/default/lib/base_quickcheck -I /Users/Preston/.opam/default/lib/bin_prot -I /Users/Preston/.opam/default/lib/bin_prot/shape -I /Users/Preston/.opam/default/lib/core -I /Users/Preston/.opam/default/lib/core_kernel -I /Users/Preston/.opam/default/lib/core_kernel/base_for_tests -I /Users/Preston/.opam/default/lib/fieldslib -I /Users/Preston/.opam/default/lib/jane-street-headers -I /Users/Preston/.opam/default/lib/parsexp -I /Users/Preston/.opam/default/lib/ppx_assert/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_bench/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_compare/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_enumerate/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_expect/collector -I /Users/Preston/.opam/default/lib/ppx_expect/common -I /Users/Preston/.opam/default/lib/ppx_expect/config -I /Users/Preston/.opam/default/lib/ppx_hash/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_inline_test/config -I /Users/Preston/.opam/default/lib/ppx_inline_test/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_module_timer/runtime -I /Users/Preston/.opam/default/lib/ppx_sexp_conv/runtime-lib -I /Users/Preston/.opam/default/lib/sexplib -I /Users/Preston/.opam/default/lib/sexplib/unix -I /Users/Preston/.opam/default/lib/sexplib0 -I /Users/Preston/.opam/default/lib/spawn -I /Users/Preston/.opam/default/lib/splittable_random -I /Users/Preston/.opam/default/lib/stdio -I /Users/Preston/.opam/default/lib/time_now -I /Users/Preston/.opam/default/lib/typerep -I /Users/Preston/.opam/default/lib/variantslib -I /usr/local/lib/ocaml/threads -no-alias-deps -opaque -open Bc__ -o .bc.objs/byte/bc__Actualbc.cmo -c -impl actualbc.pp.ml)
+> File "actualbc.ml", line 54, characters 16-68:
+> Warning 8: this pattern-matching is not exhaustive.
+> Here is an example of a case that is not matched:
+> FctStore _
+> File "actualbc.ml", line 59, characters 16-64:
+> Warning 8: this pattern-matching is not exhaustive.
+> Here is an example of a case that is not matched:
+> FctStore _
+> File "actualbc.ml", line 65, characters 24-79:
+> Warning 8: this pattern-matching is not exhaustive.
+> Here is an example of a case that is not matched:
+> Hasher _
+> File "actualbc.ml", line 70, characters 24-75:
+> Warning 8: this pattern-matching is not exhaustive.
+> Here is an example of a case that is not matched:
+> Hasher _
+> File "actualbc.ml", line 93, characters 15-27:
+> Error: This expression has type float but an expression was expected of type
+>          unit
+>        because it is in the left-hand side of a sequence
+[2]
+$ (cd _build/default && /usr/local/bin/ocamlc.opt -w @a-4-29-40-41-42-44-45-48-58-59-60-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -g -bin-annot -I .bc.objs/byte -I /Users/Preston/.opam/default/lib/base -I /Users/Preston/.opam/default/lib/base/caml -I /Users/Preston/.opam/default/lib/base/md5 -I /Users/Preston/.opam/default/lib/base/shadow_stdlib -I /Users/Preston/.opam/default/lib/base_bigstring -I /Users/Preston/.opam/default/lib/base_quickcheck -I /Users/Preston/.opam/default/lib/bin_prot -I /Users/Preston/.opam/default/lib/bin_prot/shape -I /Users/Preston/.opam/default/lib/core -I /Users/Preston/.opam/default/lib/core_kernel -I /Users/Preston/.opam/default/lib/core_kernel/base_for_tests -I /Users/Preston/.opam/default/lib/fieldslib -I /Users/Preston/.opam/default/lib/jane-street-headers -I /Users/Preston/.opam/default/lib/parsexp -I /Users/Preston/.opam/default/lib/ppx_assert/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_bench/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_compare/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_enumerate/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_expect/collector -I /Users/Preston/.opam/default/lib/ppx_expect/common -I /Users/Preston/.opam/default/lib/ppx_expect/config -I /Users/Preston/.opam/default/lib/ppx_hash/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_inline_test/config -I /Users/Preston/.opam/default/lib/ppx_inline_test/runtime-lib -I /Users/Preston/.opam/default/lib/ppx_module_timer/runtime -I /Users/Preston/.opam/default/lib/ppx_sexp_conv/runtime-lib -I /Users/Preston/.opam/default/lib/sexplib -I /Users/Preston/.opam/default/lib/sexplib/unix -I /Users/Preston/.opam/default/lib/sexplib0 -I /Users/Preston/.opam/default/lib/spawn -I /Users/Preston/.opam/default/lib/splittable_random -I /Users/Preston/.opam/default/lib/stdio -I /Users/Preston/.opam/default/lib/time_now -I /Users/Preston/.opam/default/lib/typerep -I /Users/Preston/.opam/default/lib/variantslib -I /usr/local/lib/ocaml/threads -no-alias-deps -opaque -open Bc__ -o .bc.objs/byte/bc.cmo -c -impl bc.pp.ml)
+> File "bc.ml", line 55, characters 48-63:
+> Warning 3: deprecated: Core.Hashtbl.replace
+> [since 2015-10] Use set instead
+> File "bc.ml", line 55, characters 48-63:
+> Warning 6: labels key, data were omitted in the application of this function.
+> File "bc.ml", line 55, characters 18-70:
+> Warning 8: this pattern-matching is not exhaustive.
+> Here is an example of a case that is not matched:
+> FctStore _
+> File "bc.ml", line 60, characters 18-66:
+> Warning 8: this pattern-matching is not exhaustive.
+> Here is an example of a case that is not matched:
+> FctStore _
+> File "bc.ml", line 61, characters 11-13:
+> Error: This expression has type float but an expression was expected of type
+>          float option
+[2]

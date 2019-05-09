@@ -1,0 +1,5 @@
+(** @canonical Bc.Actualbc *)
+module Actualbc = Bc__Actualbc
+
+(** @canonical Bc.Testing *)
+module Testing = Bc__Testing

@@ -1,0 +1,3 @@
+/* comment */ 5+5;              /* this should print 10 */
+3* /*another comment*/ 12;       /* this should print 36 */
+6/2 /*last comment!:D */            /* this should print 3 */

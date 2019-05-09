@@ -1,0 +1,324 @@
+open Core  
+type sExpr = 
+    | Atom of string
+    | List of sExpr list
+
+type expr = 
+    | Num of float
+    | Var of string
+    | Op1 of string*expr
+    | Op2 of string*expr*expr
+    | Fct of string * expr list
+
+type statement = 
+    | Assign of string*expr
+    | Return of expr
+    | Expr of expr
+    | If of expr * statement list * statement list
+    | While of expr*statement list
+    | For of statement*expr*statement*statement list
+    | FctDef of string * string list * statement list 
+
+let performOp1 (x : string) (y : expr) : float = 
+    match x with
+    | "-" ->( match y with Num(z) -> (0. -. z) )
+    | "++" -> ( match y with Num(z) -> (z +. 1.) )
+    | "--" -> ( match y with Num(z) -> ( z -. 1.) )
+    | _ -> 0.0
+
+let performOp2 (x : string) (y : expr) (z : expr): float = 
+    match x with
+    | "*" -> ( match y with Num(a) -> match z with Num(b) -> (a *. b) )
+    | "/" -> ( match y with Num(a) -> match z with Num(b) -> (a /. b) )
+    | "+" -> ( match y with Num(a) -> match z with Num(b) -> (a +. b) )
+    | "-" -> ( match y with Num(a) -> match z with Num(b) -> (b -. a) )
+    | _ -> 0.0
+
+type block = statement list 
+
+type env =  
+Hasher of (string, float) Hashtbl.t
+;;
+(* I think he meant -> to be completed *)
+(* this "type env" needs to be a hashmap or any map really
+for sure needs to map strings -> floats so they can be looked up
+I imagine it will have potentially map strings to other things
+as well like storing a user defined function
+thought -> map strings to a custom type I will define
+for now just make it map strings to floats for testing purposes *)
+
+type envQueue = env list
+(* this does not need to be changed its just the stack of environments *)
+
+let varEval (_v: string) (_q:envQueue): float  = 0.0  
+
+let evalExpr (_e: expr) (_q:envQueue): float  = 
+    match _e with
+    | Num(x) -> x
+    | Var(x) -> (
+        match (List.hd _q) with
+        | Hasher (z) -> Hashtbl.find z x
+    )
+    | Op1(x, y) ->  performOp1 x y 
+    | Op2(x, y, z) -> performOp2 x y z
+    | Fct(x, y) -> 0.0
+
+(*  Var(x) -> thing explained
+basically we need to use the head of our envQueue which is our current environment
+like the top of a stack in a Java program kinda, the head of that envQueue is the custom
+env type we defined which is/holds a HashMap from strings to floats, then pass 'x', 
+which does not need to be further decoded because a Var is a string as defined in our
+expr type, into this env hashmap and return what it returns which should be a float  *)
+
+    
+
+(* Test for expression *)
+(* let%expect_test "evalNum" = 
+    evalExpr (Num 30.0) [] |>
+    printf "%F";
+    [%expect {| 30. |}] *)
+
+
+let evalStatement (s: statement) (q:envQueue): envQueue =
+    match s with 
+    | Expr(x) ->  q
+    | _ -> q
+
+let evalCode (_code: block) (_q:envQueue): unit = 
+        push new env onto :: _q 
+        List.fold_left evalStatement _code _q
+        let _q = tl of _q
+
+    (* crate new environment *)
+    (* user fold_left  *)
+    (* pop the local environment *)
+    (* print_endline "Not implemented" *)
+(* 
+    v = 10; 
+    v // display v
+ *)
+ let p0: block = [
+    Op2("+", Num(1.0), Num(2.2))
+] 
+
+let%expect_test "p0" =
+    evalCode p0 []; 
+    [%expect {| 5.2 |}]
+
+let p1: block = [
+        Assign("v", Num(1.0));
+        Expr(Var("v")) 
+]
+
+let%expect_test "p1" =
+    evalCode p1 []; 
+    [%expect {| Not implemented |}]
+
+(*
+    v = 1.0;
+    if (v>10.0) then
+        v = v + 1.0
+    else
+        for(i=2.0; i<10.0; i++) {
+            v = v * i
+        }
+    v   // display v
+*)
+let p2: block = [
+    Assign("v", Num(1.0));
+    If(
+        Op2(">", Var("v"), Num(10.0)), 
+        [Assign("v", Op2("+", Var("v"), Num(1.0)))], 
+        [For(
+            Assign("i", Num(2.0)),
+            Op2("<", Var("i"), Num(10.0)),
+            Expr(Op1("++a", Var("i"))),
+            [
+                Assign("v", Op2("*", Var("v"), Var("i")))
+            ]
+        )]
+    );
+    Expr(Var("v"))
+]
+
+let%expect_test "p2" =
+    evalCode p2 []; 
+    [%expect {| Not implemented |}]
+
+(*  Fibbonaci sequence
+    define f(x) {
+        if (x<1.0) then
+            return (1.0)
+        else
+            return (f(x-1)+f(x-2))
+    }
+
+    f(3)
+    f(5)
+ *)
+let p3: block = 
+    [
+        FctDef("f", ["x"], [
+            If(
+                Op2("<", Var("x"), Num(1.0)),
+                [Return(Num(1.0))],
+                [Return(Op2("+",
+                    Fct("f", [Op2("-", Var("x"), Num(1.0))]),
+                    Fct("f", [Op2("-", Var("x"), Num(1.0))])
+                ))])
+        ]);
+        Expr(Fct("f", [Num(3.0)]));
+        Expr(Fct("f", [Num(5.0)]));
+    ]
+
+let%expect_test "p3" =
+    evalCode p3 []; 
+    [%expect {| 
+       Not implemented    
+    |}]
+
+
+
+
+
+
+
+type sExpr = 
+  | Atom of string
+  | List of sExpr list
+
+type expr = 
+  | Num of float
+  | Var of string
+  | Op1 of string*expr
+  | Op2 of string*expr*expr
+  | Fct of string * expr list
+
+type statement = 
+  | Assign of string*expr
+  | Return of expr
+  | Print of expr
+  | Expr of expr
+  | If of expr * statement list * statement list
+  | While of expr * statement list
+  | For of statement * expr * statement * statement list
+  | FctDef of string * string list * statement list 
+
+let convertbool (z : float) : bool = 
+  if z = 0.0 then false else true
+
+
+let performOp1 (x : string) (y : expr) : float = 
+  match x with
+  | "-"  ->( match y with | Num(z) -> (0. -. z) | _ -> 0.0  )
+  | "++" ->( match y with | Num(z) -> (z +. 1.) | _ -> 0.0  )
+  | "--" ->( match y with | Num(z) -> (z -. 1.) | _  -> 0.0 )
+  | _ -> 0.0
+
+let performOp2 (x : string) (y : expr) (z : expr): float = 
+  match x with
+  | "*" -> ( match y with | Num(a) -> ( match z with | Num(b) -> (a *. b) | _ -> 0.0 ) | _ -> 0.0 )
+  | "/" -> ( match y with | Num(a) -> ( match z with | Num(b) -> (a /. b) | _ -> 0.0 ) | _ -> 0.0 )
+  | "+" -> ( match y with | Num(a) -> ( match z with | Num(b) -> (a +. b) | _ -> 0.0 ) | _ -> 0.0 )
+  | "-" -> ( match y with | Num(a) -> ( match z with | Num(b) -> (b -. a) | _ -> 0.0 ) | _ -> 0.0 )
+  | "&&"-> ( match y with | Num(a) -> ( match z with | Num(b) -> (if((convertbool a)&&(convertbool b))then 1. else 0.) | _ -> 0.0 ) | _ -> 0.0 )
+  | "||"-> ( match y with | Num(a) -> ( match z with | Num(b) -> (if((convertbool a)||(convertbool b))then 1. else 0.) | _ -> 0.0 ) | _ -> 0.0 )
+  | _ -> 0.0
+
+type block = statement list 
+
+type env =  
+Hasher of (string, float) Hashtbl.t
+
+type envQueue = env list
+
+let addVar (x : string) (y : float) (z: envQueue) = 
+  match List.hd z with
+  Hasher (q) -> Hashtbl.add q x y
+
+let findVar (x : string) (z: envQueue) =
+  match List.hd z with
+  Hasher (q) -> Hashtbl.find q x 
+
+let evalExpr (_e: expr) (_q:envQueue): float  = 
+    match _e with
+    | Num(x) -> x
+    | Var(x) -> findVar x _q
+    | Op1(x, y) -> ( match y with 
+                | Var(stry) -> performOp1 x (Num(findVar stry _q))
+                | Num(numy) -> performOp1 x y 
+                | _ -> 0.0
+    )
+    | Op2(x, y, z) -> ( match y with 
+                | Var(stry) -> ( match z with | Var(strz) -> performOp2 x (Num(findVar stry _q)) (Num(findVar strz _q)) | Num(numz) -> performOp2 x (Num(findVar stry _q)) z | _ -> 0.0 )
+                | Num(numy) -> ( match z with | Var(strz) -> performOp2 x y (Num(findVar strz _q)) | Num(numz) -> performOp2 x y z | _ -> 0.0 )
+                | _ -> 0.0
+     )
+    | Fct(x, y) -> 0.0
+
+let evalStatement (q:envQueue) (s: statement): envQueue =
+    match s with 
+    | Expr(x) -> evalExpr x q; q
+    | Assign(_v, _e) -> addVar _v (evalExpr _e q) q; q
+    | Print (x) -> (print_float (evalExpr x q)); q
+    | _ -> q
+
+let evalCode (_code: block) (_q:envQueue)  = 
+  let _q = (Hasher(Hashtbl.create 100) :: _q) in
+   List.fold_left evalStatement _q _code 
+;;
+    (* crate new environment *)
+    (* user fold_left  *)
+    (* pop the local environment *)
+    (* print_endline "Not implemented" *)
+
+let the_env_list = Hasher(Hashtbl.create 100) :: []
+;;
+
+(*  this cb was going to be used to test evalCode which would have used List.hd _code
+ let cb = (Assign("v", Op2("+", Num(2.6), Num(1.0)))) :: [];; *)
+let the_env_list = evalStatement the_env_list (Assign("v", Op2("+", Num(2.6), Num(1.0)))) 
+;;
+evalStatement the_env_list (Print (Op2("+", Var("v"), Var("v")))) 
+;;
+print_newline ();; 
+(* addVar "x" 3.3 the_env_list  *)
+
+let print_me = evalExpr (Var("v")) the_env_list
+;;
+print_float print_me;;
+print_newline ();; 
+
+
+
+
+
+
+(* let the_env_list = Hasher(Hashtbl.create 100) :: [] *)
+(* ;; *)
+
+(*  this cb was going to be used to test evalCode which would have used List.hd _code
+ let cb = (Assign("v", Op2("+", Num(2.6), Num(1.0)))) :: [];; *)
+(* let the_env_list = evalStatement the_env_list (Assign("v", Op2("+", Num(2.6), Num(1.0)))) 
+;;
+evalStatement the_env_list (Print (Op2("+", Var("v"), Var("v")))) 
+;; *)
+(* let stat1 = Assign("v", Op2("+", Num(5.6), Num(1.0)))
+let stat2 = Print (Op2("+", Var("v"), Var("v")))
+let cb = stat1 :: stat2:: [];; *)
+
+
+
+(* addVar "x" 3.3 the_env_list  *)
+
+(* let print_me = evalExpr (Var("v")) the_env_list
+;;
+print_float print_me;;
+print_newline ();;  *)
+
+
+
+
+
+| Var(stry) -> ( match z with | Var(strz) -> performOp2 x (Num(findVar stry _q)) (Num(findVar strz _q)) | Num(numz) -> performOp2 x (Num(findVar stry _q)) z | _ -> 0.0 )
+                | Num(numy) -> ( match z with | Var(strz) -> performOp2 x y (Num(findVar strz _q)) | Num(numz) -> performOp2 x y z | _ -> 0.0 )
